@@ -15,7 +15,7 @@ import json
 import os
 import sys
 
-sys.path.append("../../")
+sys.path.append("../../../")
 
 import paddle
 from modeling import Ernie35Config, Ernie35ForCausalLM
