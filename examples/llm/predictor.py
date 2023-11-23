@@ -704,7 +704,7 @@ def create_predictor(
     if not predictor_args.inference_model:
         if predictor_args.mode == "dynamic":
             if model_args.model_type == "gpt-3":
-                sys.path.append("./gpt-3")
+                sys.path.append("gpt-3")
                 from modeling import GPTForCausalLM
 
                 model = GPTForCausalLM.from_pretrained(
@@ -714,7 +714,7 @@ def create_predictor(
                     tensor_parallel_rank=tensor_parallel_rank,
                 )
             elif model_args.model_type == "ernie-3.5-se":
-                sys.path.append("./ernie-3.5-se")
+                sys.path.append("ernie-3.5-se")
                 from modeling import Ernie35ForCausalLM
 
                 tensor_parallel_degree = paddle.distributed.get_world_size()
