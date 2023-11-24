@@ -2,33 +2,22 @@ import numpy as np
 import pandas as pd
 import csv
 
-def csv_2_npz():
 
-    # 读取CSV文件
-    csv_file = '../es/train_sft.csv'
+def csv_2_npy_npz():
+    csv_file = 'train_sft.csv'
     data = pd.read_csv(csv_file)
+    numpy_data = data.values
 
-    # 将数据转换为NumPy数组
-    data_array = data.values
+    # 将NumPy数组保存为train_ids.npy文件
+    np.save('train_ids.npy', numpy_data)
 
-    # 创建_idx.npz文件
-    np.savez(f'train_idx', data_array=data_array)
-
-def csv_2_npy():
-    csv_file = '../es/train_sft.csv'
-    with open(csv_file, 'r') as csv_file:
-        reader = csv.reader(csv_file)
-        data = list(reader)
-
-        # 将数据转换为NumPy数组
-    numpy_data = np.array(data)
-
-    # 保存为npy文件
-    np.save('../data/train_ids.npy', numpy_data)
+    # 将NumPy数组保存为train_idx.npz文件
+    npz_data = {str(i): numpy_data[i] for i in range(len(numpy_data))}
+    np.savez('train_idx.npz', **npz_data)
 
 
 # mv llama_openwebtext_100k_ids.npy ./data
 # mv llama_openwebtext_100k_idx.npz ./data
 
 if __name__ == '__main__':
-    csv_2_npy()
+    csv_2_npy_npz()
